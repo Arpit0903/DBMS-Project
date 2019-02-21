@@ -1,0 +1,95 @@
+create table Doctor(D_SSN int PRIMARY KEY, D_NAME varchar(10), GENDER varchar(1), AGE int, POSITION varchar(10), 
+				    PHONE int, ADDRES varchar(10), CITY varchar(10), ZIP int);
+
+create table Paycheck(D_SSN int, FOREIGN KEY(D_SSN) REFERENCES Doctor(D_SSN), Chknum int PRIMARY KEY, Sal int, Bonus int);
+
+create table Patient(D_SSN int, FOREIGN KEY(D_SSN) REFERENCES Doctor(D_SSN), PSSN int PRIMARY KEY, Pname varchar(10), Gender varchar(2), Age int, Phone int, City varchar(10));
+					
+create table CPT(CPTID int PRIMARY KEY, Category varchar(10));
+
+create table Diagnosis(DID int PRIMARY KEY, Category varchar(10));
+
+create table Prescription(PID int PRIMARY KEY, MQTY int);
+
+create table Meds(MID int PRIMARY KEY, MName varchar(10), Price int);
+
+create table PresMeds(PID int, FOREIGN KEY(PID) REFERENCES Prescription(PID), MID int, FOREIGN KEY(MID) REFERENCES Meds(MID)); 
+
+create table Invoice(PSSN int, FOREIGN KEY(PSSN) REFERENCES Patient(PSSN), INum int PRIMARY KEY, CPTID int, FOREIGN KEY(CPTID) REFERENCES CPT(CPTID), DID int, FOREIGN KEY(DID) REFERENCES Diagnosis(DID), PID int, FOREIGN KEY(PID) REFERENCES Prescription(PID), Amount int, Idate DATE, Ddate date); 					
+
+select * from Doctor;
+select * from Paycheck;
+select * from Patient;
+select * from CPT;
+select * from Diagnosis;
+select * from Prescription;
+select * from Meds;
+select * from PresMeds;
+select * from Invoice;
+
+insert into Doctor values(101, 'John',	'M', 35, 'Physician', 9898767, 'Powai', 'Mumbai', 400076);
+insert into Doctor values(102, 'Smith',	'M', 37, 'Resident', 9876541, 'Malad', 'Mumbai', 400097);
+insert into Doctor values(103, 'Srishti', 'F', 44, 'Gynaec',	7845123, 'Vesu', 'Surat', 395010);
+insert into Doctor values(104, 'Sam', 'M', 53, 'Dentist',	8989751	,'Rander', 'Surat',	395004);
+insert into Doctor values(105, 'NIdhi',	'F', 51, 'ENT',	7946138,	'Rohini', 'Delhi', 101256);
+
+
+insert into Paycheck values(101, 450123, 90000, 5300);
+insert into Paycheck values(102, 568741, 70000,	6100);
+insert into Paycheck values(103, 547891, 47000,	800);
+insert into Paycheck values(104, 789412, 63000,	900);
+insert into Paycheck values(105, 578932, 51000,	1300);
+
+insert into Patient values(103,	13, 'Vishv', 'M', 19, 9887898, 'Surat');
+insert into Patient values(101,	18, 'Phill', 'M', 25, 7474145, 'Mumbai');
+insert into Patient values(101,	15, 'Scarlet', 'F',	21,	8989547, 'Mumbai');
+insert into Patient values(105,	98, 'Ash', 'M',	53,	8796547, 'Delhi');
+insert into Patient values(103,	45, 'Harvey', 'M', 35, 6969696, 'Surat');
+insert into Patient values(104,	33, 'Donna', 'F', 29, 8754326, 'Surat');
+insert into Patient values(104,	23, 'Shree', 'F', 47, 7878787, 'Surat');
+
+insert into CPT values(87879, 'Surgery');
+insert into CPT values(45455, 'Radiology');
+insert into CPT values(12453, 'Medicine');
+insert into CPT values(78965, 'Pathology');
+insert into CPT values(12548, 'Medicine');
+insert into CPT values(89657, 'Surgery');
+insert into CPT values(26570, 'Radiology');
+
+insert into Diagnosis values(9,	'Surgery');
+insert into Diagnosis values(7,	'Radiology');
+insert into Diagnosis values(2,	'Medicine');
+insert into Diagnosis values(3,	'Pathology');
+insert into Diagnosis values(5,	'Medicine');
+insert into Diagnosis values(1,	'Surgery');
+insert into Diagnosis values(4,	'Radiology');
+
+insert into Prescription values(78, 2);
+insert into Prescription values(79, 2);
+insert into Prescription values(81, 1);
+insert into Prescription values(68, 3);
+insert into Prescription values(63, 4);
+insert into Prescription values(87, 1);
+insert into Prescription values(69, 2);
+
+insert into Meds values(251, 'Motrin', 620);
+insert into Meds values(265, 'Glipizide', 780);
+insert into Meds values(248, 'Biaxin',	1500);
+insert into Meds values(249, 'Amoxil',	426);
+insert into Meds values(263, 'Flonasl',	1790);
+
+insert into PresMeds values(78,	251);
+insert into PresMeds values(79,	265);
+insert into PresMeds values(81,	248);
+insert into PresMeds values(68,	249);
+insert into PresMeds values(63,	263);
+insert into PresMeds values(87,	251);
+insert into PresMeds values(69,	248);
+
+insert into Invoice values(13, 1011, 87879, 9, 78, 8000, '23-Dec-2017', '30-Dec-2017');
+insert into Invoice values(15, 5624, 45455, 7, 79, 18000, '16-Feb-2017', '19-Feb-2017');
+insert into Invoice values(18, 5465, 12453, 2, 81, 12000, '3-Jan-2017', '5-Jan-2017');
+insert into Invoice values(23, 8978, 78965, 3, 68, 30000, '19-May-2017', '21-May-2017');
+insert into Invoice values(33, 4598, 12548, 5, 63, 9000, '21-Oct-2017', '22-Oct-2017');
+insert into Invoice values(45, 1245, 89657, 1, 87, 13000, '30-Nov-2017', '2-Dec-2017');
+insert into Invoice values(98, 7821, 26570, 4, 69, 7000, '20-Sep-2017', '25-Sep-2017');

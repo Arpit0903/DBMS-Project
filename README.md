@@ -1,4 +1,4 @@
-# DBMS-
+# DBMS
 Patient Management System
 
 This repo contains code for Patient Database
